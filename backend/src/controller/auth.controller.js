@@ -33,3 +33,15 @@ export async function register(req,res){
 
 }
 
+export async function getMe(req,res){
+  const id = req.user.id
+
+ const user = await userModel.findById(id)
+  
+  res.status(201).json({
+    message:"Authorized user",
+    user
+  })
+}
+
+

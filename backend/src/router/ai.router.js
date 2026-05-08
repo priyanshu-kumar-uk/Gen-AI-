@@ -1,8 +1,14 @@
 import {Router} from 'express'
-import {handleMessage} from '../controller/ai.controller.js'
+import {getChatMessages, getUserChats, handleMessage} from '../controller/ai.controller.js'
+import { verifyUser } from '../middleware/verifyUser.js'
 
 const chatRouter = Router()
 
-chatRouter.post("/chat",handleMessage)   
+chatRouter.post("/chat",verifyUser,handleMessage)  
+chatRouter.get("/chat/:chatId",verifyUser,getChatMessages)  
+chatRouter.get("/chats",verifyUser,getUserChats)  
+
+
+
    
 export default chatRouter
