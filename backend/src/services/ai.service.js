@@ -21,3 +21,4 @@ export async function getStream(messages) {    // stream
     const stream = await agent.stream({ messages }, { streamMode: "messages" })
     return stream
 }
+

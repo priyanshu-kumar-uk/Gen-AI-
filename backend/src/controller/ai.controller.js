@@ -26,8 +26,6 @@ import {getStream} from '../services/ai.service.js'
 
 
 export async function handleMessage(req, res) {
-
-    console.log(req.body)
     const message = req.body.message
 
     const messages = [
