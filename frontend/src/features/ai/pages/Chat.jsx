@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { userChat } from '../hooks/ai.hook.js'
 import { setMessages, setActiveChatId } from '../state/ai.state.js'
-import './Chat.css'
+// import './Chat.css'
+import Reactmarkdown from 'react-markdown'
+import remarkGrm from 'remark-gfm'
 
 const Chat = () => {
     const { id } = useParams()
@@ -40,7 +42,11 @@ const Chat = () => {
                         className={`chat-message-row ${msg.role === "user" ? "user" : "assistant"}`}
                     >
                         <span className={`chat-message-label ${msg.role}`}>{msg.role === 'user' ? 'You' : 'Ai'}</span>
-                        <span className="chat-message-content">{msg.content}</span>
+                        <span className="chat-message-content">
+                            <Reactmarkdown remarkPlugins={[remarkGrm]}>
+                               {msg.content}
+                            </Reactmarkdown>
+                            </span>
                     </div>
                 ))}
             </div>

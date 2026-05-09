@@ -1,6 +1,8 @@
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { userChat } from "../hooks/ai.hook"
+import Reactmarkdown from 'react-markdown'
+import remarkGrm from 'remark-gfm'
 import './Sidebar.css'
 
 const Sidebar = () => {
@@ -26,7 +28,9 @@ const Sidebar = () => {
                         onClick={() => navigate(`/chat/${chat._id}`)}
                         className="sidebar-chat-item"
                     >
-                        {chat.title || "New Conversation"}
+                        <Reactmarkdown remarkPlugins={remarkGrm}>
+                           {chat.title}
+                        </Reactmarkdown>
                     </div>
                 ))}
             </div>

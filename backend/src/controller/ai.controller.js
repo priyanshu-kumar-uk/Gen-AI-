@@ -1,4 +1,4 @@
-import {getStream} from '../services/ai.service.js'
+import {generateTitle, getStream} from '../services/ai.service.js'
 
 // const message = []                 // memory of stored a data becuse Ai dont rembers previos chat they dont have any history of our chat that why we are using a local memory 
 // export async function chatMessage(req,res){
@@ -31,12 +31,13 @@ export async function handleMessage(req, res) {
     const userId = req.user.id;
 
     let currentChatId = (chatId && typeof chatId === 'string') ? chatId : null;
-
+      
     try {
         if (!currentChatId) {
+            const aiGeneratedTitle = await generateTitle(message);
             const newChat = await chatModel.create({
                 userId: userId,
-                title: message.substring(0, 35) + "..."
+                title: aiGeneratedTitle
             });
             currentChatId = newChat._id; 
         }
@@ -46,7 +47,7 @@ export async function handleMessage(req, res) {
             role: "user",
             content: message
         });
-
+  
         const history = await messageModel.find({ chatId: currentChatId }).sort({ createdAt: 1 });
         const aiMessages = history.map(msg => ({ 
             role: msg.role, 

@@ -17,10 +17,9 @@ export const userChat = function () {
             dispatch(appendContentToLastMessage({ chunk }))
         })
 
-        // Agar new chat thi (activeChatId null tha), toh redirect aur sidebar refresh
         if (serverChatId && serverChatId !== activeChatId) {
             dispatch(setActiveChatId(serverChatId));
-            getUserChats(); // Sidebar update karo naye title ke liye
+            getUserChats();
             navigate(`/chat/${serverChatId}`);
         }
     }

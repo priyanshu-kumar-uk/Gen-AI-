@@ -22,3 +22,12 @@ export async function getStream(messages) {    // stream
     return stream
 }
 
+
+export async function generateTitle(message) {
+    const prompt = `
+      User message: "${message}"Task: Generate a 3 to 5 word title for this chat.Rules: - Do NOT use quotes.- Do NOT use a period at the end.- Return ONLY the title text, nothing else.- Be concise.`
+    const response = await model.invoke(prompt);
+    return response.content;
+}
+
+
